@@ -1,0 +1,43 @@
+{
+    "lang": {
+        "locale": "ru_RU",
+        "placeholder": "Выберите дату",
+        "rangePlaceholder": [
+            "Начало",
+            "Конец"
+        ],
+        "today": "Сегодня",
+        "now": "Сейчас",
+        "backToToday": "Назад на день",
+        "ok": "OK",
+        "clear": "Очитстить",
+        "month": "Месяц",
+        "year": "Год",
+        "timeSelect": "Select time",
+        "dateSelect": "Select date",
+        "monthSelect": "Choose a month",
+        "yearSelect": "Choose a year",
+        "decadeSelect": "Choose a decade",
+        "yearFormat": "YYYY",
+        "dateFormat": "M/D/YYYY",
+        "dayFormat": "D",
+        "dateTimeFormat": "M/D/YYYY HH:mm:ss",
+        "monthFormat": "MMMM",
+        "monthBeforeYear": true,
+        "previousMonth": "Previous month (PageUp)",
+        "nextMonth": "Next month (PageDown)",
+        "previousYear": "Last year (Control + left)",
+        "nextYear": "Next year (Control + right)",
+        "previousDecade": "Last decade",
+        "nextDecade": "Next decade",
+        "previousCentury": "Last century",
+        "nextCentury": "Next century"
+    },
+    "timePickerLocale": {
+        "placeholder": "Select time"
+    },
+    "dateFormat": "DD.MM.YYYY",
+    "dateTimeFormat": "DD.MM.YYYY HH:mm:ss",
+    "weekFormat": "YYYY wo неделя",
+    "monthFormat": "MM.YYYY"
+}
