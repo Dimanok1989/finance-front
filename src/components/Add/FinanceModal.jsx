@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setOpen } from "./../../store/finances/actions";
+import { setOpen, createdRow, setPagination } from "./../../store/finances/actions";
 import axios from "./../../system/axios";
 
 import 'moment/locale/ru';
@@ -11,7 +11,8 @@ import { Loader } from "./../UI";
 
 const FinanceModal = props => {
 
-    const { open, setOpen } = props;
+    const { open, setOpen, createdRow } = props;
+    const { pagination, setPagination } = props;
     const [formdata, setFormdata] = React.useState({});
     const [save, setSave] = React.useState(false);
     const [form] = Form.useForm();
@@ -47,8 +48,9 @@ const FinanceModal = props => {
         if (save) {
 
             axios.post('saveFinance', formdata).then(({ data }) => {
+                createdRow(data.row);
+                setPagination({ ...pagination, total: (pagination.total || 0) + 1 });
                 setOpen(false);
-                console.log(data);
             }).catch(error => {
                 message.error(axios.getError(error));
             }).then(() => {
@@ -158,10 +160,11 @@ const FinanceModal = props => {
 
 const mapStateToProps = state => ({
     open: state.finance.open,
+    pagination: state.finance.pagination,
 });
 
 const mapDispatchToProps = {
-    setOpen
+    setOpen, createdRow, setPagination
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FinanceModal);
