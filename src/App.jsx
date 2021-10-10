@@ -50,7 +50,7 @@ const App = props => {
     }, []);
 
     if (loading)
-        return <Loader />
+        return <Loader inverted />
 
     if (error) {
         return <Result

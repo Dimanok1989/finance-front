@@ -5,7 +5,7 @@ import moment from 'moment';
 import { connect } from "react-redux";
 import { setPagination, setData } from "./../../store/finances/actions";
 
-import { Table } from 'antd';
+import { Table, Card } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
 const PAGE_SIZE = 10;
@@ -71,7 +71,7 @@ const FinanceRows = props => {
         });
     }
 
-    return <div className="site-layout-background" style={{ padding: "1rem 1rem 0" }}>
+    return <Card bodyStyle={{ paddingBottom: 7 }}>
         <Table
             columns={columns}
             dataSource={data}
@@ -81,7 +81,7 @@ const FinanceRows = props => {
             style={{ height: "100%" }}
         // rowKey={console.log}
         />
-    </div>
+    </Card>
 
 }
 

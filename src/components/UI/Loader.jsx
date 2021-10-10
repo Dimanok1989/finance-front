@@ -3,7 +3,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 
 const Loader = props => {
 
-    if (!props.active)
+    if (typeof props.active != "undefined" && !props.active)
         return null;
 
     const antIcon = <LoadingOutlined style={{ fontSize: props.width || 24 }} spin />;
