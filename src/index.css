@@ -34,3 +34,16 @@ code {
 .grid-content .ant-row {
   margin-bottom: 12px;
 }
+
+.login-form {
+  max-width: 300px;
+}
+.login-form-forgot {
+  float: right;
+}
+.ant-col-rtl .login-form-forgot {
+  float: left;
+}
+.login-form-button {
+  width: 100%;
+}

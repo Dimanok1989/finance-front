@@ -15,6 +15,7 @@ import 'moment/locale/ru';
 import locale from 'antd/es/date-picker/locale/ru_RU';
 
 import Routes from "./routes";
+import Authrization from "./components/Authrization";
 
 const App = props => {
 
@@ -61,7 +62,7 @@ const App = props => {
     }
 
     if (!isLogin)
-        return "Авторизация";
+        return <Authrization {...props} />;
 
     return <ConfigProvider locale={locale}>
         <BrowserRouter>

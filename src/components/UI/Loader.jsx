@@ -18,6 +18,7 @@ const Loader = props => {
         right: 0,
         bottom: 0,
         background: props.inverted ? "rgba(255, 255, 255, 0.45)" : "rgba(0, 0, 0, 0.1)",
+        zIndex: 10,
     }}><Spin indicator={antIcon} /></div>;
 
 }
