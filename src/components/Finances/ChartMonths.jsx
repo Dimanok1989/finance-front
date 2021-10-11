@@ -4,14 +4,20 @@ import { Column } from '@antv/g2plot';
 const ChartMonths = props => {
 
     const content = React.useRef();
+    const plot = React.useRef();
     const { data } = props;
 
     React.useEffect(() => {
+        plot.current && plot.current.changeData([...data]);
+    }, [data]);
 
-        const columnPlot = new Column(content.current, {
+    React.useEffect(() => {
+
+        plot.current = new Column(content.current, {
             data: data,
             xField: 'month',
             yField: 'summa',
+            animation: "scale-in-y",
             label: {
                 autoRotate: true,
             },
@@ -31,13 +37,13 @@ const ChartMonths = props => {
             },
         });
 
-        columnPlot.render();
+        plot.current.render();
 
         return () => {
-            columnPlot.destroy();
+            plot.current.destroy();
         }
 
-    }, [data])
+    }, [])
 
     return <div ref={content}></div>
 

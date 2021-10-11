@@ -1,13 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setOpen, createdRow, setPagination } from "./../../store/finances/actions";
+import { setOpen, createdRow, setPagination, appendCahrtsData } from "./../../store/finances/actions";
 import axios from "./../../system/axios";
-
-import 'moment/locale/ru';
-import locale from 'antd/es/date-picker/locale/ru_RU';
 
 import { Modal, Form, DatePicker, InputNumber, message } from "antd";
 import { Loader } from "./../UI";
+
+import moment from "moment";
+
+const getMonth = month => {
+    let text = moment(month).format("MMM YYYY");
+    return text[0].toUpperCase() + text.slice(1);
+}
 
 const FinanceModal = props => {
 
@@ -16,6 +20,7 @@ const FinanceModal = props => {
     const [formdata, setFormdata] = React.useState({});
     const [save, setSave] = React.useState(false);
     const [form] = Form.useForm();
+    const { appendCahrtsData } = props;
 
     const changeData = (name, value) => setFormdata({ ...formdata, [name]: value });
 
@@ -48,9 +53,13 @@ const FinanceModal = props => {
         if (save) {
 
             axios.post('saveFinance', formdata).then(({ data }) => {
+                
                 createdRow(data.row);
+                appendCahrtsData({ ...data.row, month: getMonth(data.row.month) });
+
                 setPagination({ ...pagination, total: (pagination.total || 0) + 1 });
                 setOpen(false);
+
             }).catch(error => {
                 message.error(axios.getError(error));
             }).then(() => {
@@ -104,7 +113,6 @@ const FinanceModal = props => {
                 >
                     <DatePicker
                         picker="month"
-                        locale={locale}
                         format={"YYYY MMM"}
                         onChange={(...a) => onChangeDate([...a, "month"])}
                         style={{ width: "100%" }}
@@ -123,7 +131,6 @@ const FinanceModal = props => {
                 >
                     <DatePicker
                         picker="date"
-                        locale={locale}
                         format={"DD.MM.YYYY"}
                         onChange={(...a) => onChangeDate([...a, "date"])}
                         style={{ width: "100%" }}
@@ -142,8 +149,8 @@ const FinanceModal = props => {
                 >
                     <InputNumber
                         step={0.01}
-                        formatter={value => `₽ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                        parser={value => value.replace(/\₽\s?|(,*)/g, '')}
+                        // formatter={value => `₽ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                        // parser={value => value.replace(/\₽\s?|(,*)/g, '')}
                         onChange={value => changeData("summa", value)}
                         style={{ width: "100%" }}
                     />
@@ -164,7 +171,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    setOpen, createdRow, setPagination
+    setOpen, createdRow, setPagination, appendCahrtsData
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FinanceModal);

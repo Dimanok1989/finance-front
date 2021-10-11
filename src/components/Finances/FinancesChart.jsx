@@ -2,15 +2,17 @@ import React from "react";
 import { Row, Col, Card } from 'antd';
 import moment from "moment";
 import axios from "./../../system/axios";
+import { connect } from "react-redux";
+import { chartMonthsData, chartYearsData } from "./../../store/finances/actions";
 
 import ChartMonths from "./ChartMonths";
 import ChartYears from "./ChartYears";
 
-const Chart = () => {
+const Chart = props => {
 
     const [loading, setLoading] = React.useState(true);
-    const [months, setMonths] = React.useState([]);
-    const [years, setYears] = React.useState([]);
+    const { months, chartMonthsData } = props;
+    const { years, chartYearsData } = props;
 
     React.useEffect(() => {
 
@@ -22,8 +24,8 @@ const Chart = () => {
         setLoading(true);
 
         axios.post('getFinanceStat').then(({ data }) => {
-            setMonths(data.salary.map(row => ({ ...row, month: getMonth(row.month) })));
-            setYears(data.years);
+            chartMonthsData(data.salary.map(row => ({ ...row, month: getMonth(row.month) })));
+            chartYearsData(data.years);
         }).catch(error => {
 
         }).then(() => {
@@ -47,4 +49,13 @@ const Chart = () => {
 
 }
 
-export default Chart;
+const mapStateToProps = state => ({
+    months: state.finance.chartMonths,
+    years: state.finance.chartYears,
+});
+
+const mapDispatchToProps = {
+    chartMonthsData, chartYearsData
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chart);
