@@ -3,10 +3,10 @@ import axios from "./../../system/axios";
 import moment from 'moment';
 
 import { connect } from "react-redux";
-import { setPagination, setData } from "./../../store/finances/actions";
+import { setPagination, setData, setOpen } from "./../../store/finances/actions";
 
-import { Table, Card } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import { Table, Card, Row, Col, Button } from 'antd';
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 
 const PAGE_SIZE = 10;
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
@@ -71,7 +71,22 @@ const FinanceRows = props => {
         });
     }
 
-    return <Card bodyStyle={{ paddingBottom: 7 }}>
+    return <Card
+        bodyStyle={{ paddingBottom: 7 }}
+        title={<Row justify="space-between" align="middle" style={{ margin: 0 }}>
+            <Col>Таблица операций</Col>
+            <Col>
+                <Button
+                    size="small"
+                    type="primary"
+                    icon={<PlusOutlined />}
+                    onClick={() => props.setOpen(true)}
+                    children="Добавить"
+                />
+            </Col>
+        </Row>}
+    >
+
         <Table
             columns={columns}
             dataSource={data}
@@ -91,7 +106,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    setPagination, setData
+    setPagination, setData, setOpen
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(FinanceRows);

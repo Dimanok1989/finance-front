@@ -74,9 +74,9 @@ const App = props => {
                 <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
                     <div className="logo">KOLGAEV</div>
                     <Menu theme="dark" selectable={false} mode="horizontal">
-                        <Menu.Item key="1" onClick={() => props.setOpenFinance(true)}>
+                        {/* <Menu.Item key="1" onClick={() => props.setOpenFinance(true)}>
                             Добавить
-                        </Menu.Item>
+                        </Menu.Item> */}
                     </Menu>
                 </Header>
 

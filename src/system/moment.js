@@ -1,9 +1,6 @@
-import moment from 'moment';
+import moment from "moment";
+import "moment/locale/ru";
 
-moment.locale('ru', {
-    week: {
-        dow: 1,
-    },
-});
+moment.locale("ru");
 
 export default moment;

@@ -6,7 +6,9 @@ import axios from "./../../system/axios";
 import { Modal, Form, DatePicker, InputNumber, message } from "antd";
 import { Loader } from "./../UI";
 
-import moment from "moment";
+import 'moment/locale/ru';
+import locale from 'antd/es/date-picker/locale/ru_RU';
+import moment from "./../../system/moment";
 
 const getMonth = month => {
     let text = moment(month).format("MMM YYYY");
@@ -53,9 +55,15 @@ const FinanceModal = props => {
         if (save) {
 
             axios.post('saveFinance', formdata).then(({ data }) => {
-                
+
                 createdRow(data.row);
-                appendCahrtsData({ ...data.row, month: getMonth(data.row.month) });
+                appendCahrtsData({
+                    ...data.row,
+                    summa: data.row.money,
+                    year: Number(data.row.year),
+                    monthDateTime: data.row.month,
+                    month: getMonth(data.row.month),
+                });
 
                 setPagination({ ...pagination, total: (pagination.total || 0) + 1 });
                 setOpen(false);
@@ -116,6 +124,7 @@ const FinanceModal = props => {
                         format={"YYYY MMM"}
                         onChange={(...a) => onChangeDate([...a, "month"])}
                         style={{ width: "100%" }}
+                        locale={locale}
                     />
                 </Form.Item>
 
@@ -134,6 +143,7 @@ const FinanceModal = props => {
                         format={"DD.MM.YYYY"}
                         onChange={(...a) => onChangeDate([...a, "date"])}
                         style={{ width: "100%" }}
+                        locale={locale}
                     />
                 </Form.Item>
 
@@ -153,6 +163,7 @@ const FinanceModal = props => {
                         // parser={value => value.replace(/\₽\s?|(,*)/g, '')}
                         onChange={value => changeData("summa", value)}
                         style={{ width: "100%" }}
+                        locale={locale}
                     />
                 </Form.Item>
 
